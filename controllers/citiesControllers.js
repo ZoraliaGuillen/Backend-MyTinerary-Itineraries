@@ -156,7 +156,7 @@ const citiesControllers = {
 
             } catch (err) { error.push({ err }) }
         }
-        
+
         res.json({
             response: error.length > 0 && citiesDelete.length === 0 ? "ERROR" : citiesDelete,
             success: error.length > 0 ? (citiesDelete.length > 0 ? "Warning" : false) : true,
