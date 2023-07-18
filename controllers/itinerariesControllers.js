@@ -65,6 +65,7 @@ const itinerariesControllers = {
                         cityId: itinerary.cityId,
                         cityName: itinerary.cityName,
                         nameItinerary: itinerary.nameItinerary,
+                        descriptionItinerary: descriptionItinerary,
                         userName: itinerary.userName,
                         userPhoto: itinerary.userPhoto,
                         price: itinerary.price,
@@ -96,7 +97,7 @@ const itinerariesControllers = {
 
     },
     addOneItinerary: async (req, res) => {
-        const { cityId, cityName, nameItinerary, userName, userPhoto, price, duration, hastags, likes } = req.body.data
+        const { cityId, cityName, nameItinerary, descriptionItinerary, userName, userPhoto, price, duration, hastags, likes } = req.body.data
         let itinerary
         let error = null
 
@@ -108,6 +109,7 @@ const itinerariesControllers = {
                     cityId: cityId,
                     cityName: cityName,
                     nameItinerary: nameItinerary,
+                    descriptionItinerary: descriptionItinerary,
                     userName: userName,
                     userPhoto: userPhoto,
                     price: price,
@@ -168,6 +170,23 @@ const itinerariesControllers = {
         res.json({
             response: error.length > 0 && itinerariesDelete.length === 0 ? "ERROR" : itinerariesDelete,
             success: error.length > 0 ? (itinerariesDelete.length > 0 ? "Warning" : false) : true,
+            error: error
+        })
+
+    },
+    getOneItineraryByCityId: async (req, res) => {
+        const cityId = req.params.cityId
+        console.log(cityId)
+        let itinerary
+        let error = null
+
+        try {
+            itinerary = await Itineraries.find({ cityId: cityId })
+        } catch (err) { error = err }
+
+        res.json({
+            response: error ? "ERROR" : itinerary,
+            success: error ? false : true,
             error: error
         })
 

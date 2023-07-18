@@ -1,7 +1,7 @@
 const Router = require("express").Router()
 
 const itinerariesControllers = require("../controllers/itinerariesControllers")
-const {getAllItineraries, getOneItinerary, addManyItineraries, addOneItinerary, removeManyItineraries, removeItinerary, modifyItinerary} = itinerariesControllers
+const {getAllItineraries, getOneItinerary, addManyItineraries, addOneItinerary, removeManyItineraries, removeItinerary, modifyItinerary, getOneItineraryByCityId} = itinerariesControllers
 
 Router.route("/itineraries")
 .get(getAllItineraries)
@@ -12,6 +12,9 @@ Router.route("/itineraries/:id")
 .get(getOneItinerary)
 .delete(removeItinerary)
 .put(modifyItinerary)
+
+Router.route("/itineraries/:cityId")
+.get(getOneItineraryByCityId)
 
 // Router.route("/allitineraries")
 // .post(addAllitineraries)
