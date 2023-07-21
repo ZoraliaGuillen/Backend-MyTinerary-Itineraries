@@ -65,13 +65,19 @@ const itinerariesControllers = {
                         cityId: itinerary.cityId,
                         cityName: itinerary.cityName,
                         nameItinerary: itinerary.nameItinerary,
-                        descriptionItinerary: descriptionItinerary,
+                        descriptionItinerary: itinerary.descriptionItinerary,
+                        activitiesOne: itinerary.activitiesOne,
+                        activitiesOnePhoto: itinerary.activitiesOnePhoto,
+                        activitiesTwo: itinerary.activitiesTwo,
+                        activitiesTwoPhoto: itinerary.activitiesTwoPhoto,
+                        activitiesThree: itinerary.activitiesThree,
+                        activitiesThreePhoto: itinerary.activitiesThreePhoto,
                         userName: itinerary.userName,
                         userPhoto: itinerary.userPhoto,
                         price: itinerary.price,
                         duration: itinerary.duration,
                         hashtags: itinerary.hashtags,
-                        likes: itinerary.likes,
+                        likes: itinerary.likes
                     }
 
                     await new Itineraries({
@@ -97,12 +103,12 @@ const itinerariesControllers = {
 
     },
     addOneItinerary: async (req, res) => {
-        const { cityId, cityName, nameItinerary, descriptionItinerary, userName, userPhoto, price, duration, hastags, likes } = req.body.data
+        const { cityId, cityName, nameItinerary, descriptionItinerary, activitiesOne, activitiesOnePhoto, activitiesTwo, activitiesTwoPhoto, activitiesThree, activitiesThreePhoto, userName, userPhoto, price, duration, hashtags, likes } = req.body.data
         let itinerary
         let error = null
 
         try {
-            let verifyItineraryExist = await Itineraries.find({ nameItinerary: { $regex: itinerary.nameItinerary, $options: 'i' } })
+            let verifyItineraryExist = await Itineraries.find({ nameItinerary: { $regex: nameItinerary, $options: 'i' } })
             console.log(verifyItineraryExist)
             if (verifyItineraryExist.length == 0) {
                 itinerary = await new Itineraries({
@@ -110,12 +116,18 @@ const itinerariesControllers = {
                     cityName: cityName,
                     nameItinerary: nameItinerary,
                     descriptionItinerary: descriptionItinerary,
+                    activitiesOne: activitiesOne,
+                    activitiesOnePhoto: activitiesOnePhoto,
+                    activitiesTwo: activitiesTwo,
+                    activitiesTwoPhoto: activitiesTwoPhoto,
+                    activitiesThree: activitiesThree,
+                    activitiesThreePhoto: activitiesThreePhoto,
                     userName: userName,
                     userPhoto: userPhoto,
                     price: price,
                     duration: duration,
-                    hastags: hastags,
-                    likes: likes, 
+                    hashtags: hashtags,
+                    likes: likes,
                 }).save()
             } else {
                 error = "El itinerario ya existe en la BD con el id: " + verifyItineraryExist[0]._id + "ENTRO POR ADDONEITINERARY"
