@@ -206,7 +206,3 @@ const itinerariesControllers = {
 };
 
 module.exports = itinerariesControllers;
-
-
-
-
